@@ -4,10 +4,12 @@
   * For each index, there is a value associated with that index
 * implemented by using **consecutive memory**
 * ordered list
+
 |    | list[0] | list[1] | list[2] | list[3] | list[4] | list[5] |
 |:----:|:----:|:----:|:----:|:----:|:----:|:----:|
 | memory address   | base_address = a   | a + sizeof(int)   | a + 2 * sizeof(int)   | a + 3 * sizeof(int) | a + 4 * sizeof(int) | a + 5 * sizeof(int)|
 | int_value | value0 | value1 | value2 | value3 | value4 |  value5  |
+
 * Advantages:
 * Disadvantages:
   * data **movement** during insertion and deletion
