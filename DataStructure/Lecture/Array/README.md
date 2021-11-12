@@ -1,5 +1,5 @@
 # Array
-## Introduction
+# Introduction
 * a set of pairs: **<index, value>**
   * For each index, there is a value associated with that index
 * implemented by using **consecutive memory**
@@ -15,7 +15,7 @@
   * data **movement** during insertion and deletion
   * waste space in storing n ordered list of varying size
 
-### ADT (Abstract data type) of Array
+## ADT (Abstract data type) of Array
 ```C++
 class GeneralArray{
     public:
@@ -26,9 +26,9 @@ class GeneralArray{
         void Store(index i, float, x);
 }
 ```
-## Applications
-### Polynomial
-#### ADT of Polynomial 
+# Applications
+## Polynomial
+### ADT of Polynomial 
 ```C++
 class Polynomial{
     public:
@@ -39,10 +39,10 @@ class Polynomial{
 
 }
 ```
-### Sparse Matrices
+## Sparse Matrices
 
-### String
-#### ADT of String
+## String
+### ADT of String
 
 ```C++
 class String{
@@ -77,10 +77,10 @@ class String{
 }
 
 ```
-#### String Matchig
+### String Matchig
 We will discuss two algorithm to match the string
 1. Simple string match
 2. KMP algorithm
-##### Simple String Matching
-##### KMP (Knuth-Morris-Pratt) algorithm
+#### Simple String Matching
+#### KMP (Knuth-Morris-Pratt) algorithm
 * Proposed by Knuth, Morris and Pratt
