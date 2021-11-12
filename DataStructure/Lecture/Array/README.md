@@ -26,9 +26,44 @@ class GeneralArray{
         void Store(index i, float, x);
 }
 ```
-## Applicattions
+## Applications
 ### Polynomial
 
 ### Sparse Matrices
 
 ### String
+#### ADT of String
+
+```C++
+class String{
+
+ public:
+    // constructor that initializes this to string init of length l
+    String(char *init, int m);
+    
+    // override the == operator of string
+    // if this is equals to t then return true; else return false
+    bool operator==(String t);
+    
+    // override the ! operator of string
+    // if this is empty then return true; else return false
+    bool operator!();
+    
+    // return the length of this
+    int length();
+
+    // return the string whose elements are
+    // those of this followed by those of t
+    String concat(String t);
+    
+    // return the string starting at i and having length j 
+    // from this string
+    String substr(int i, int j);
+    
+    // return the index i such that pat matches the substring of this
+    // that beginsat position i
+    // return -1 if pat is eithor empty or not a substring of this
+    int find(String pat);
+}
+
+```
