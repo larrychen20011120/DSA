@@ -15,14 +15,20 @@
   * data **movement** during insertion and deletion
   * waste space in storing n ordered list of varying size
 
-## ADT(Abstract data type) of Array
+### ADT(Abstract data type) of Array
 ```C++
 class GeneralArray{
     public:
-        GeneralArray(int j, float initValue = defaultValue);
+        GeneralArray(int length, float initValue = defaultValue);
 
         float Retrieve(index i);
 
         void Store(index i, float, x);
 }
 ```
+## Applicattions
+### Polynomial
+
+### Sparse Matrices
+
+### String
