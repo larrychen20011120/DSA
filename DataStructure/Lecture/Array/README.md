@@ -15,7 +15,7 @@
   * data **movement** during insertion and deletion
   * waste space in storing n ordered list of varying size
 
-### ADT(Abstract data type) of Array
+### ADT (Abstract data type) of Array
 ```C++
 class GeneralArray{
     public:
@@ -28,7 +28,17 @@ class GeneralArray{
 ```
 ## Applications
 ### Polynomial
+#### ADT of Polynomial 
+```C++
+class Polynomial{
+    public:
+        // Construct the polynomial p(x) = 0
+        Polynomial();
+        
+        //
 
+}
+```
 ### Sparse Matrices
 
 ### String
@@ -67,3 +77,10 @@ class String{
 }
 
 ```
+#### String Matchig
+We will discuss two algorithm to match the string
+1. Simple string match
+2. KMP algorithm
+##### Simple String Matching
+##### KMP (Knuth-Morris-Pratt) algorithm
+* Proposed by Knuth, Morris and Pratt
