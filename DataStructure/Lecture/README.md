@@ -1,2 +1,3 @@
 # NCKU Lecture of data structure
-## reference :
+## reference : Fundamentals of Data Structures 2nd Edition
+               -- Horowitz & Sahni & Mehta
