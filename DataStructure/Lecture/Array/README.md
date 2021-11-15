@@ -2,7 +2,7 @@
 # Introduction
 * a set of pairs: <mark><index, value></mark>
   * For each index, there is a value associated with that index
-* implemented by using **consecutive memory**
+  * implemented by using <mark>consecutive memory</mark>
 * ordered list
 
 |    | list[0] | list[1] | list[2] | list[3] | list[4] | list[5] |
