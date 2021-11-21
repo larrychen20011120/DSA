@@ -1,8 +1,8 @@
 # Array
 # Introduction
-* a set of pairs: <mark><index, value></mark>
+* a set of pairs: ==<index, value>==
   * For each index, there is a value associated with that index
-  * implemented by using <mark>consecutive memory</mark>
+  * implemented by using ==consecutive memory==
 * ordered list
 
 |    | list[0] | list[1] | list[2] | list[3] | list[4] | list[5] |
@@ -12,10 +12,10 @@
 
 * Advantages:
 * Disadvantages:
-  * data **movement** during insertion and deletion
+  * ==data movement== during insertion and deletion
   * waste space in storing n ordered list of varying size
 
-## ADT (Abstract data type) of Array
+## ADT of Array
 ```C++
 class GeneralArray{
     public:
@@ -27,7 +27,31 @@ class GeneralArray{
 }
 ```
 # Applications
-## Polynomial
+Apply array structure at different problems, there are three examples we'll discuss.
+1. Polynomial
+    >focus on the special case called ==sparse==
+2. Sparse Matrix
+     > focus on the ==transpose== operation of matrix
+3. String (char array)
+     > focus on the ==string matching==
+     
+## Polynomial 
+* Representation 1
+    * Intuitively, we may use an array named **coefficent** with the shared size called **maxDegree**
+    * For all polynomials, their **degree $\leq$ maxDegree**
+    * the **index** of the coefficient array means the **exponent** corresponding to that coefficient
+    * **Waste space** when the degree of the polynomial is much smaller than maxDegree (most space are unused)
+
+* Representation 2
+    * make some improvements on representation 1
+    * Instead of using shared data maxDegree, we turn to create a **new attribute** called **degree** for indicating that polynomial's degree
+    * the **index** of the coefficient array also indicates the **exponent**
+    * However it's still **space-consuming** when it comes to **sparse** situation
+
+* ==Representation 3==
+    * more suitable for sparse polynomial (there are many ==zero terms== in it)  
+    * 
+
 ### ADT of Polynomial 
 ```C++
 class Polynomial{
@@ -42,6 +66,10 @@ class Polynomial{
 ## Sparse Matrices
 
 ## String
+* character array ==end with '\0'==
+
+    | H | E | L | L | O |  | W | O | R| L | D | \0 |
+    |----|----|----|----|----|----|----|----|----|----|----|----|
 ### ADT of String
 
 ```C++
@@ -77,10 +105,28 @@ class String{
 }
 
 ```
-### String Matchig
-We will discuss two algorithm to match the string
+### String Matching
+We will discuss 2 algorithms about string matching
 1. Simple string match
-2. KMP algorithm
+2. ==KMP algorithm==
 #### Simple String Matching
+* an intuitive way to match string
+* every time we shift only one character when not matching
+* complexity = ==O(lengthP * lengthS)==
 #### KMP (Knuth-Morris-Pratt) algorithm
-* Proposed by Knuth, Morris and Pratt
+* Proposed by Knuth, Morris and Pratt (Three smart guys)
+* consist of two phases
+    *  Generate an array to indicate the moving direction
+    *  Use the array to move and match string 
+* the main idea of it: ==shifting many words== when not matching 
+
+    * in order to do that, we need to generate the **failure function**
+
+* failure function
+
+    :::warning
+    If p = p<sub>0</sub>p<sub>1</sub>…p<sub>n-1</sub> is a pattern, then its failure function, f is defined as 
+    $$ f(n)= \begin{cases} max(k), & \text {if                 $p_0$ $p_1$...$p_k$ = $p_{j-k}$ $p_{j-k+1}$...$p_j$ and 0 $\leq$ k < j } \\  -1, & \text{otherwise} \end{cases} $$
+      
+    :::
+* complexity = ==O(lengthP + lengthS)== 
