@@ -1,6 +1,6 @@
 # Array
 # Introduction
-* a set of pairs: ==<index, value>==
+* a set of pairs: <mark>(index, value)</mark>
   * For each index, there is a value associated with that index
   * implemented by using ==consecutive memory==
 * ordered list
