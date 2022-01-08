@@ -1,11 +1,14 @@
 #include <iostream>
+#include <fstream>
 #include <string>
 
 using namespace std;
 
+// node of the tree structure
 class TreeNode{
 
     public:
+        // constructor of the TreeNode class
         TreeNode(int value, TreeNode* lft, TreeNode* rgt){
             this->value = value;
             this->leftChild = lft;
@@ -13,21 +16,24 @@ class TreeNode{
         }
 
     private:
-        int value;
-        TreeNode* leftChild;
-        TreeNode* rightChild;
+        int value; // the value of it
+        TreeNode* leftChild; // its left child
+        TreeNode* rightChild; // its right sibling
 
-    friend class BinaryTree;
+    friend class BinaryTree; // setting friend class
 };
 
+// the binary structure
 class BinaryTree{
 
     public:
-        void add(int, TreeNode*);
-        void preorder(TreeNode*);
-        void postorder(TreeNode*);
-        void preToIn(int*, int*, int, TreeNode*);
-        void postToIn(int*, int*, int, TreeNode*);
+        // operations of BinaryTree
+        void preorder(TreeNode*, ofstream&);
+        void postorder(TreeNode*, ofstream&);
+        void preToIn(int*, int*, int, TreeNode*, int);
+        void postToIn(int*, int*, int, TreeNode*, int);
+
+        // get the root node out of the class
         TreeNode* getRoot(){
             return this->root;
         }
@@ -37,56 +43,75 @@ class BinaryTree{
 
 
 int main() {
+
+    ifstream ifs;
+    ofstream ofs;
+
+    string inputpath;
+    cout << "FILEPATH: ";
+    getline(cin, inputpath);
+    ifs.open(inputpath);
+
+    if (!ifs.is_open()){
+        cout << "Failed to open file." << endl;
+        return 1;
+    }
+
+    int found = inputpath.find("in");
+    string outputpath = inputpath.replace(found, 2, "out");
+    ofs.open(outputpath);
+
     int m;
-    cin >> m;
+    ifs >> m;
 
     for (int i = 0; i < m; i++){
         int n;
         string type;
         BinaryTree bt;
-
-        cin.ignore();
-        getline(cin, type);
-        cin >> n;
+        ifs >> type;
+        ifs >> n;
         int a[n], b[n];
 
         for (int i = 0; i < n; i++)
-            cin >> a[i];
+            ifs >> a[i];
         for (int i = 0; i < n; i++)
-            cin >> b[i];
+            ifs >> b[i];
 
         if (type.compare("preorder-inorder") == 0){
-            bt.preToIn(a, b, n, bt.getRoot());
-            bt.postorder(bt.getRoot());
+            bt.preToIn(a, b, n, NULL, 0);
+            bt.postorder(bt.getRoot(), ofs);
+            ofs << endl;
         }else if (type.compare("postorder-inorder") == 0){
-            bt.postToIn(a, b, n, bt.getRoot());
-            bt.preorder(bt.getRoot());
+            bt.postToIn(a, b, n, NULL, 0);
+            bt.preorder(bt.getRoot(), ofs);
+            ofs << endl;
         }else{
-            cout << "ERROR" << endl;
+            ofs << "ERROR" << endl;
         }
     }
 
     return 0;
 }
 
-void BinaryTree::add(int value, TreeNode* addedNode){
-    addedNode = new TreeNode(value, NULL, NULL);
-}
+void BinaryTree::preToIn(int* pre, int* in, int size, TreeNode* curr, int type){
 
-void BinaryTree::preToIn(int* pre, int* in, int size, TreeNode* curr){
-
-    if (size == 0){
-        cout << "Zero\n";
+    if (size == 0)
         return;
-    }
 
     int visit = pre[0];
     int position;
-    this->add(visit, curr);
 
-    if (size == 1){
-        cout << "One\n";
-        return;
+    if (!this->root){
+        this->root = new TreeNode(visit, NULL, NULL);
+        curr = this->root;
+    }else if (type == 1){
+        // left
+        curr->leftChild = new TreeNode(visit, NULL, NULL);
+        curr = curr->leftChild;
+    }else{
+        // right
+        curr->rightChild = new TreeNode(visit, NULL, NULL);
+        curr = curr->rightChild;
     }
 
     for (int i = 0; i < size; i++){
@@ -96,19 +121,30 @@ void BinaryTree::preToIn(int* pre, int* in, int size, TreeNode* curr){
         }
     }
 
-    preToIn(&pre[1], in, position, curr->leftChild);
-    preToIn(&pre[1 + position], &in[1 + position], size - position - 1, curr->rightChild);
+    preToIn(&pre[1], in, position, curr, 1);
+    preToIn(&pre[1 + position], &in[1 + position], size - position - 1, curr, -1);
 }
 
-void BinaryTree::postToIn(int* post, int* in, int size, TreeNode* curr){
+void BinaryTree::postToIn(int* post, int* in, int size, TreeNode* curr, int type){
 
-    int visit = *(post + size - 1);
-    int position;
-    this->add(visit, curr);
-
-    if (size == 1)
+    if (size == 0)
         return;
 
+    int visit = post[size - 1];
+    int position;
+
+    if (!this->root){
+        this->root = new TreeNode(visit, NULL, NULL);
+        curr = this->root;
+    }else if (type == 1){
+        // left
+        curr->leftChild = new TreeNode(visit, NULL, NULL);
+        curr = curr->leftChild;
+    }else{
+        // right
+        curr->rightChild = new TreeNode(visit, NULL, NULL);
+        curr = curr->rightChild;
+    }
 
     for (int i = 0; i < size; i++){
         if (*(in + i) == visit){
@@ -117,23 +153,23 @@ void BinaryTree::postToIn(int* post, int* in, int size, TreeNode* curr){
         }
     }
 
-    postToIn(post, in, position, curr->leftChild);
-    postToIn(post + position, in + position + 1, size - position - 1, curr->rightChild);
+    postToIn(post, in, position, curr, 1);
+    postToIn(post + position, in + position + 1, size - position - 1, curr, -1);
 }
 
-void BinaryTree::preorder(TreeNode* curr){
+void BinaryTree::preorder(TreeNode* curr, ofstream &ofs){
     if (!curr)
         return;
 
-    cout << curr->value << " ";
-    this->preorder(curr->leftChild);
-    this->preorder(curr->rightChild);
+    ofs << curr->value << " ";
+    this->preorder(curr->leftChild, ofs);
+    this->preorder(curr->rightChild, ofs);
 }
-void BinaryTree::postorder(TreeNode* curr){
+void BinaryTree::postorder(TreeNode* curr, ofstream &ofs){
     if (!curr)
         return;
 
-    this->postorder(curr->leftChild);
-    this->postorder(curr->rightChild);
-    cout << curr->value << " ";
+    this->postorder(curr->leftChild, ofs);
+    this->postorder(curr->rightChild, ofs);
+    ofs << curr->value << " ";
 }
