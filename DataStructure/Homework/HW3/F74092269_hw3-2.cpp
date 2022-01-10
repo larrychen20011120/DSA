@@ -4,13 +4,13 @@
 
 using namespace std;
 
-ofstream ofs; // define as gobal so that dfs can use
 
-void dfs(short**, bool*, int, int);
+void dfs(short**, bool*, int, int, ofstream&);
 
 int main() {
 
     ifstream ifs;
+    ofstream ofs;
 
     string inputpath;
 
@@ -50,7 +50,7 @@ int main() {
             }
         }
 
-        dfs(adjMatrix, visited, m, t);
+        dfs(adjMatrix, visited, m, t, ofs);
         ofs << endl; // match the output
     }
     ifs.close();
@@ -58,14 +58,17 @@ int main() {
     return 0;
 }
 
-void dfs(short** adj, bool* visited, int num_v, int index_v){
+void dfs(short** adj, bool* visited, int num_v, int index_v, ofstream& ofs){
+    // output the vertex and record it to visited
     ofs << index_v << " ";
     visited[index_v] = true;
     for (int v = 0; v < num_v; v++){
         if (adj[v][index_v] == 1){
-            // adjacency
+            // if they are adjacent
             if (!visited[v]){
-                dfs(adj, visited, num_v, v);
+                // check it has visited or not
+                // if not do dfs recursively
+                dfs(adj, visited, num_v, v, ofs);
             }
         }
     }
