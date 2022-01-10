@@ -4,30 +4,32 @@
 
 using namespace std;
 
-
 void dfs(short**, bool*, int, int, ofstream&);
 
 int main() {
 
-    ifstream ifs;
-    ofstream ofs;
-
-    string inputpath;
+    ifstream ifs; // for input file
+    ofstream ofs; // for output file
 
     int n; // number of dataset
     int m, t; // how many vertices and start point
     short** adjMatrix;
 
+    // fill in the input path and read it
+    string inputpath;
     cout << "FILEPATH: ";
     getline(cin, inputpath);
     ifs.open(inputpath);
+
     if (!ifs.is_open()){
+        // Error for no such file
         cout << "Failed to open file." << endl;
         return 1;
-    }else{
-        ifs >> n;
     }
 
+    ifs >> n;
+    // find the 'in' string and replace it to 'out'
+    // and then create the file
     int found = inputpath.find("in");
     string outputpath = inputpath.replace(found, 2, "out");
     ofs.open(outputpath);
@@ -38,6 +40,7 @@ int main() {
         bool visited[m]; // record the vertex is visited or not
         adjMatrix = new short* [m];
 
+        // generate 2D matrix and initialize the visit to false
         for (int i = 0; i < m; i++){
             adjMatrix[i] = new short[m];
             visited[i] = false;

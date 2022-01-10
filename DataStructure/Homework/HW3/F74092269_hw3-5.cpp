@@ -3,7 +3,7 @@
 #include <fstream>
 #include <queue>
 
-#define INF 500000001
+#define INF 500000001 // max distance may be 500000000
 
 using namespace std;
 
@@ -62,19 +62,23 @@ class Graph{
 
 int main(){
 
-    ifstream ifs;
-    ofstream ofs;
+    ifstream ifs; // for input file
+    ofstream ofs; // for output file
 
+    // fill in the input path and read it
     string inputpath;
     cout << "FILEPATH: ";
     getline(cin, inputpath);
     ifs.open(inputpath);
 
     if (!ifs.is_open()){
+        // Error for no such file
         cout << "Failed to open file." << endl;
         return 1;
     }
 
+    // find the 'in' string and replace it to 'out'
+    // and then create the file
     int found = inputpath.find("in");
     string outputpath = inputpath.replace(found, 2, "out");
     ofs.open(outputpath);
@@ -83,8 +87,9 @@ int main(){
     int v1, v2, cost;
     int startVertex;
     ifs >> numOfVertex;
-    Graph myGraph(numOfVertex);
+    Graph myGraph(numOfVertex); // initialize the graph
 
+    // based on input fill the Graph
     for (int i = 0; i < numOfVertex - 1; i++){
         ifs >> v1 >> v2 >> cost;
         myGraph.add(v1, v2, cost);
@@ -98,30 +103,41 @@ int main(){
 
 void Graph::findShortestPath(int start, ofstream& ofs){
     start--; // correct the vertex number to vertex index
-    int* distance = new int[this->numOfVertex];
-    bool* visit = new bool[this->numOfVertex];
-    queue <int> handleIndexes;
+    int* distance = new int[this->numOfVertex]; // record distance from start to others
+    bool* visit = new bool[this->numOfVertex]; // record the vertex visited or not
+    queue <int> handleIndexes; // the index of vertex to be handled
 
+    // initialize the visit to false and distance to infinity
     for (int i = 0; i < this->numOfVertex; i++){
         visit[i] = false;
         distance[i] = INF;
     }
 
-    distance[start] = 0;
-    handleIndexes.push(start);
+    distance[start] = 0; // distance from start to start is 0
+    handleIndexes.push(start); // push start into handle queue
 
+    // go through all vertex
     while(!handleIndexes.empty()){
+        // get the front and pop it out
         int searchIdx = handleIndexes.front();
         handleIndexes.pop();
+
         if (visit[searchIdx]){
+            // has visited and then next looping
             continue;
         }else{
+            // not visited mark it to visited
             visit[searchIdx] = true;
         }
 
+        // go through all adjacent vertices to searchIdx
         for (adjNode* iter = this->adjHead[searchIdx].next; iter != NULL; iter = iter->next){
-            handleIndexes.push(iter->adjVertex);
+            handleIndexes.push(iter->adjVertex); // push it into handleQueue
             if (distance[iter->adjVertex] > distance[searchIdx] + iter->cost){
+                // if the distance from start to searchIdx +
+                // distance from searchIdx to adjacent vertex
+                // is smaller than the distance from start to adjacent vertex,
+                // change the distance
                 distance[iter->adjVertex] = distance[searchIdx] + iter->cost;
             }
         }
