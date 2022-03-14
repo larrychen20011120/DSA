@@ -1,22 +1,28 @@
-class min_heap:
-    def __init__(self):
-        self.arr = [-1] * 1024
-        self.length = 0
+class MinHeap:
+    def __init__(self, arr, length):
+        self.arr = arr
+        # start at index 1
+        # parent => // 2
+        # child => 2n or 2n + 1
+        self.length = length
 
-    def insert(self, value):
-        idx = 0
-        while True:
-            if value < self.arr[idx]:
-                temp = self.arr[idx]
-                self.arr[idx] = value
-                self.heapify(temp, idx)
-                break
-            
+    def heapify(self, idx=1):
+        if idx > self.length:
+            return
+        self.heapify(2 * idx)
+        self.heapify(2 * idx + 1)
 
-    def heapify(self, value, index)
+        if
 
+    def printAll(self):
+        for i in range(1, self.length + 1):
+            print(self.arr[i], end=' ')
+        print()
 
 if __name__ == '__main__':
     N = int(input())
     line = (input()).split(' ')
-    arr = [l for l in line]
+    arr = [int(l) for l in line]
+    min_heap = MinHeap(arr=arr, N)
+    min_heap.heapify()
+    min_heap.printAll()
