@@ -1,5 +1,6 @@
 # HW1 Problems
 There are three problems in this homework with different difficulties.
+
 ## Arashi's Craft
 ### Description
 Arashi87 is addicted to a game called "arashi's craft" recently. All the items in this game are made of blocks. The first thing to do while being a newbie in the game is definitely building a beautiful house, but arashi87 doesn't have too much blocks to use. To cost down, arashi87 hopes that you can write a program to help him see the result of the house after several operations.
