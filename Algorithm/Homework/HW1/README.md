@@ -13,8 +13,21 @@ We made the problem simple. Now we have number  to  blocks put on  slots in orde
 
 Please note that when the block  and the block  are in the same pile, the operation get skipped. The final result should be printed after all the operations are done.
 ### Testing Data
+
 ## Stack Simulator
 ### Description
+After the intense practice of data structure at the first semester of sophomore, you must be very familiar with compiling data structure with your brain. This problem asks you to become a cold-blood stack machine. You are an empty stack and asked to do the following operations:
+
+* `PUSH`: put the empty set `{}` into stack
+* `DUP`: duplicate the top element of the stack and put it in stack
+* `UNION`: pop out two elements, put the union of them back to stack
+* `INTERSECT`: pop out two elements, put the intersection of them back to stack
+* `ADD`: pop out two elements, add the first as the element of the later, and put the result back to the stack.
+
+For example, if the first element taken out from the stack is `X={{}, {{}}}`, the second one is `Y={{}, {{{}}}}`. The result of several operations is:
+* `UNION` operation gets `{{}, {{}}, {{{}}}}`. The number of elements in the set is **3**.
+* `INTERSECT` operation gets `{{}}`. The number of elements in the set is **1**.
+* `ADD` operation gets `{{}, {{{}}}, {{}, {{}}} }`，The number of elements in the set is **3**.
 ### Testing Data
 ## Test Prediction
 ### Description
