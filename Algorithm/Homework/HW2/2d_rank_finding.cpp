@@ -31,8 +31,8 @@ int main(int argc, char const *argv[]) {
     rank_finding(arr, rank, 0, N);
 
     for (int i = 0; i < N; i++){
-        cout << rank[i] << endl;
-    }
+        cout << rank[i] << " ";
+    } cout << endl;
     return 0;
 }
 
