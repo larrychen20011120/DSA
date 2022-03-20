@@ -9,7 +9,8 @@ Inversion number is the number of pairs of inverted numbers is a series. It's of
 ### input
 First line is the size of a. Second line contains the n numbers in a.
 * ![](https://latex.codecogs.com/svg.image?2&space;\leq&space;n&space;\leq&space;10^{6})
-* ![](https://latex.codecogs.com/svg.image?-10^{8}&space;\leq&space;a_{i}&space;\leq&space;10^{8})
+
+* ![](https://latex.codecogs.com/svg.image?-10^{8}\leq&space;a_{i}&space;\leq&space;10^{8})
 
 ### output
 Output the inversion number of a. The number maybe be big. Please `mod` it with `524287` before output.
