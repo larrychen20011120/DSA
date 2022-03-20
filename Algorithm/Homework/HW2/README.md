@@ -9,7 +9,7 @@ Inversion number is the number of pairs of inverted numbers is a series. It's of
 ### input
 First line is the size of a. Second line contains the n numbers in a.
 * ![](https://latex.codecogs.com/svg.image?2&space;\leq&space;n&space;\leq&space;10^{6})
-* ![](https://latex.codecogs.com/svg.image?-10^{8}&space;\leq&space;M&space;\leq&space;10^{8})
+* ![](https://latex.codecogs.com/svg.image?-10^{8}&space;\leq&space;a_{i}&space;\leq&space;10^{8})
 
 ### output
 Output the inversion number of a. The number maybe be big. Please `mod` it with `524287` before output.
@@ -54,8 +54,7 @@ Your job here is to `list all the combinations` from the numbers Arashi87 picked
 ### input
 You will be given an integer k ( 6 < k < 13 ) first.
 The integers following k is the number Arashi87 picked, and they are listed in ascending order.
-* ![](https://latex.codecogs.com/svg.image?1&space;\leq&space;N&space;\leq&space;2\times10^{5})
-* ![](https://latex.codecogs.com/svg.image?-10^{8}&space;\leq&space;a_{i}&space;\leq&space;10^{8})
+
 ### output
 Print all the possible combinations. (One combination for each line)
 Each combination should be in ascending order.
