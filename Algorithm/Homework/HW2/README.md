@@ -55,6 +55,7 @@ Your job here is to `list all the combinations` from the numbers Arashi87 picked
 You will be given an integer k ( 6 < k < 13 ) first.
 The integers following k is the number Arashi87 picked, and they are listed in ascending order.
 * ![](https://latex.codecogs.com/svg.image?1&space;\leq&space;N&space;\leq&space;2\times10^{5})
+* ![](https://latex.codecogs.com/svg.image?-10^{8}&space;\leq&space;a_{i}&space;\leq&space;10^{8})
 ### output
 Print all the possible combinations. (One combination for each line)
 Each combination should be in ascending order.
