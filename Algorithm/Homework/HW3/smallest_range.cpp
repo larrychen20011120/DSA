@@ -9,17 +9,18 @@ struct Node{
 
 class MinHeap{
 private:
-    Node** arr = new Node* [25000];
-    int length = 1;
-    Node* delete_();
+    Node** arr;
+    int length;
+    int max;
 public:
     void insert_(Node*);
-    int* find_range(int);
-    void printAll(){
-        for (int i = 1; i < length; i++)
-            cout << arr[i]->value << " ";
-        cout << endl;
+    Node* delete_();
+    MinHeap(int k){
+        arr = new Node* [k];
+        length = 1; max = -100001;
     }
+    int getMax() { return max; }
+    int getMin() { return arr[1]->value; }
 };
 
 int main(int argc, char const *argv[]) {
@@ -27,26 +28,47 @@ int main(int argc, char const *argv[]) {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int k, len;
-    int value;
-    MinHeap minHeap = MinHeap();
+    int k, len, value;
+    int result[3];
     cin >> k;
+    queue <Node*> q_arr[k];
+    MinHeap minHeap = MinHeap(k);
 
     for (int i = 0; i < k; i++){
         // load the data
         cin >> len;
         for (int j = 0; j < len; j++){
             cin >> value;
-            Node* node = new Node{.value = value, .type = i};
-            minHeap.insert_(node);
+            q_arr[i].push(new Node{.value = value, .type = i});
         }
     }
-    int* output = minHeap.find_range(k);
-    cout << output[0] << " " << output[1] << endl;
+    // initial
+    for (int i = 0; i < k; i++){
+        minHeap.insert_(q_arr[i].front());
+        q_arr[i].pop();
+    }
+    result[0] = minHeap.getMin(); result[1] = minHeap.getMax();
+    result[2] = result[1] - result[0];
+
+    while (true) {
+        Node* out = minHeap.delete_();
+        if (q_arr[out->type].empty())
+            break;
+
+        minHeap.insert_(q_arr[out->type].front());
+        q_arr[out->type].pop();
+
+        if (minHeap.getMax() - minHeap.getMin() < result[2]){
+            result[0] = minHeap.getMin(); result[1] = minHeap.getMax();
+            result[2] = result[1] - result[0];
+        }
+    }
+    cout << result[0] << " " << result[1] << endl;
     return 0;
 }
 
 void MinHeap::insert_(Node* node){
+    max = (node->value > max) ? node->value : max;
     arr[length] = node;
     int child = length;
     int parent = length / 2;
@@ -67,9 +89,9 @@ Node* MinHeap::delete_(){
 
     while (true) {
         int smallest = curr;
-        if (2 * curr < length - 1 && arr[2 * curr]->value < arr[smallest]->value)
+        if (2 * curr < length && arr[2 * curr]->value < arr[smallest]->value)
             smallest = 2 * curr;
-        if (2 * curr < length - 2 && arr[2 * curr + 1]->value < arr[smallest]->value)
+        if (2 * curr + 1 < length && arr[2 * curr + 1]->value < arr[smallest]->value)
             smallest = 2 * curr + 1;
 
         if (smallest == curr)
@@ -80,42 +102,5 @@ Node* MinHeap::delete_(){
         arr[smallest] = temp;
         curr = smallest;
     }
-
     return returnNode;
-}
-
-int* MinHeap::find_range(int k){
-    bool finded[k];
-    queue <Node*> q;
-    int* returnArr = new int[3];
-    returnArr[2] = 200001;
-    for (int i = 0; i < k; i++)
-        finded[i] = false;
-
-    while (length != 1) {
-        Node* out = delete_();
-        if (!finded[out->type]){
-            q.push(out);
-            finded[out->type] = true;
-            if ((int)q.size() == k){
-                if (returnArr[2] > q.back()->value - q.front()->value){
-                    returnArr[2] = q.back()->value - q.front()->value;
-                    returnArr[0] = q.front()->value;
-                    returnArr[1] = q.back()->value;
-                }
-            }
-        } else {
-            while (!q.empty()) {
-                if (q.front()->type == out->type){
-                    q.pop();
-                    q.push(out);
-                    break;
-                } else {
-                    finded[q.front()->type] = false;
-                    q.pop();
-                }
-            }
-        }
-    }
-    return returnArr;
 }
