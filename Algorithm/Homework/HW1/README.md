@@ -27,6 +27,7 @@ Output how blocks are distributed on  slots in order. The beginning of every lin
 ## Testing Data
 ### sample
 * input
+
     ```
     10 8
     pile 1 onto 1
@@ -39,6 +40,7 @@ Output how blocks are distributed on  slots in order. The beginning of every lin
     pile 3 onto 7
     ```
 * output
+
     ```
     1: 1
     2: 2 9
@@ -77,6 +79,7 @@ For each operation, output the number of elements in the `top set of stack` and 
 ## Testing Data
 ### sample 1
 * input
+
     ```
     10
     PUSH
@@ -91,6 +94,7 @@ For each operation, output the number of elements in the `top set of stack` and 
     ADD
     ```
 * output
+
     ```
     0
     0
@@ -105,6 +109,7 @@ For each operation, output the number of elements in the `top set of stack` and 
     ```
 ### sample 2
 * input
+
     ```
     9
     PUSH
@@ -118,6 +123,7 @@ For each operation, output the number of elements in the `top set of stack` and 
     UNION
     ```
 * output
+
     ```
     0
     0
@@ -131,6 +137,7 @@ For each operation, output the number of elements in the `top set of stack` and 
     ```
 ### sample 3
 * input
+
     ```
     7
     PUSH
@@ -142,6 +149,7 @@ For each operation, output the number of elements in the `top set of stack` and 
     INTERSECT
     ```
 * output
+
     ```
     0
     0
@@ -174,6 +182,7 @@ For each `get` operation, if there exist chapter a, output its content b. Otherw
 ## Testing Data
 ### sample
 * input
+
     ```
     10 10
     get 4
@@ -188,6 +197,7 @@ For each `get` operation, if there exist chapter a, output its content b. Otherw
     get 2
     ```
 * output
+
     ```
     -1
     4
