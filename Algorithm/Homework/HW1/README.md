@@ -160,7 +160,7 @@ For each operation, output the number of elements in the `top set of stack` and 
     0
     ```
 # Test Prediction
-[Reference solution](test.prediction.cpp)
+[Reference solution](test_prediction.cpp)
 ## Description
 A new semester has started! It is well known that professors in the Arashi87's course like to have pop quiz. However, Arashi87 is a quite lazy student. He invented a "Test Prediction Algorithm" according to an unscientific theory. This allows him to prepare less stuff and get more to time to slack off. The algorithm he invented is described down below:
 
