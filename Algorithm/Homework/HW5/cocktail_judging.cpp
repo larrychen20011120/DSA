@@ -6,6 +6,9 @@ using namespace std;
 struct Cocktail {
     int number, concentration;
     bool operator< (const Cocktail &c) const {
+        if (concentration == c.concentration) {
+            return number > c.number;
+        }
         return concentration < c.concentration;
     }
 };
@@ -57,28 +60,18 @@ int main() {
         cin >> value;
         if (max_heap.in_heap(i - M)) {
             max_heap.delete_(i - M);
-            cocktails.push(Cocktail {i, -value});
-            while (cocktails.top().number <= i - M)
-                cocktails.pop();
-            max_heap.insert_(cocktails.top().number, -cocktails.top().concentration);
-            cocktails.pop();
-            while (max_heap.top_().concentration > -cocktails.top().concentration){
-                if (cocktails.top().number <= i - M) {
-                    cocktails.pop();
-                } else {
-                    cocktails.push(Cocktail {max_heap.top_().number, -max_heap.top_().concentration});
-                    max_heap.pop_();
-                    max_heap.insert_(cocktails.top().number, -cocktails.top().concentration);
-                    cocktails.pop();
-                }
-            }
+            max_heap.insert_(i, value);
         } else {
-            if (max_heap.top_().concentration > value) {
+            cocktails.push(Cocktail {i, -value});
+        }
+        while (max_heap.top_().concentration > -cocktails.top().concentration){
+            if (cocktails.top().number <= i - M) {
+                cocktails.pop();
+            } else {
                 cocktails.push(Cocktail {max_heap.top_().number, -max_heap.top_().concentration});
                 max_heap.pop_();
-                max_heap.insert_(i, value);
-            } else {
-                cocktails.push(Cocktail {i, -value});
+                max_heap.insert_(cocktails.top().number, -cocktails.top().concentration);
+                cocktails.pop();
             }
         }
         cout << max_heap.top_().concentration << " ";
