@@ -23,9 +23,9 @@ public:
         end = 1; where_is = new int[N]; heap = new Cocktail[K + 1];
         for (int i = 0; i < N; i++) { where_is[i] = 0; }
     }
-    inline void insert_(int, int);
-    inline void delete_(int);
-    inline void pop_();
+    void insert_(int, int);
+    void delete_(int);
+    void pop_();
     inline Cocktail top_() { return heap[1]; }
     inline bool in_heap(int number) {
         return where_is[number] != 0;
@@ -78,7 +78,7 @@ int main() {
     } cout << endl;
     return 0;
 }
-inline void MaxHeap::insert_(int number, int concentration){
+void MaxHeap::insert_(int number, int concentration){
     heap[end].number = number; heap[end].concentration = concentration;
     where_is[number] = end;
     int curr = end;
@@ -97,7 +97,7 @@ inline void MaxHeap::insert_(int number, int concentration){
     }
     end++;
 }
-inline void MaxHeap::delete_(int number){
+void MaxHeap::delete_(int number){
     int curr = where_is[number]; end--;
     where_is[number] = 0; where_is[heap[end].number] = curr;
     heap[curr].concentration = heap[end].concentration;
@@ -124,7 +124,7 @@ inline void MaxHeap::delete_(int number){
         }
     }
 }
-inline void MaxHeap::pop_() {
+void MaxHeap::pop_() {
     // end - 1 cover the index 1
     end--;
     where_is[heap[1].number] = 0; where_is[heap[end].number] = 1;
