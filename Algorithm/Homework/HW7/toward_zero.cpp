@@ -1,5 +1,5 @@
 #include <iostream>
-#include <list>
+#include <vector>
 #include <cmath>
 #define MAX_SUM 1000
 
@@ -18,7 +18,8 @@ int main() {
     dist[1][0] = true; // setting unuse to true
     for (int i = 0; i < N; i++) {
         cin >> a;
-        list <int> clear_idx;
+        vector <int> clear_idx;
+        clear_idx.reserve(MAX_SUM);
         for (int j = 0; j <= MAX_SUM; j++) {
             if (dist[1-use][j]) {
                 clear_idx.push_back(j);
