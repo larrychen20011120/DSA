@@ -7,27 +7,43 @@ int main () {
     cin.tie(0);
     int N; cin >> N;
     int start, end;
-    long long maximum = 0;
-    int test[N+1];
-    long long difficuty[N+1];
+    int start_global, end_global;
+    long long max_global, max_local ;
+    int test;
+
+    // initial
+    start = 1; end = 0;
+    start_global = 1; end_global = 1;
+    max_local = 0; max_global = 0;
 
     for (int i = 1; i <= N; i++) {
-        cin >> test[i];
-        if (test[i] < 0)
-            maximum += test[i];
-    }
-
-    for (int i = N; i >= 1; i--) {
-        difficuty[i] = test[i];
-        for (int j = N; j > i; j--) {
-            difficuty[j] = difficuty[j] + test[i];
-            if (difficuty[j] > maximum) {
-                maximum = difficuty[j];
-                start = i; end = j;
+        cin >> test;
+        if (test >= 0) {
+            max_local += test;
+            end++;
+        } else {
+            if (max_global <= max_local) {
+                max_global = max_local;
+                start_global = start;
+                end_global = end;
+            }
+            if (max_local + test >= 0) {
+                max_local += test;
+                end++;
+            } else {
+                max_local = 0;
+                start = i + 1;
+                end = i;
             }
         }
     }
-    cout << maximum << " " << start << " " << end << endl;
+    if (max_global <= max_local) {
+        max_global = max_local;
+        start_global = start;
+        end_global = end;
+    }
+
+    cout << max_global << " " << start_global << " " << end_global << endl;
 
     return 0;
 }
