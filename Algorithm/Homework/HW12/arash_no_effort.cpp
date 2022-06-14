@@ -1,55 +1,80 @@
 #include <iostream>
+#include <set>
 #include <stack>
 #include <vector>
-#include <algorithm>
-#include <functional>
 
 using namespace std;
 
-int main () {
+vector<vector<int>> adj;
+
+// function to add edge to the graph
+void addEdge(int x,int y)
+{
+	adj[x].push_back(y);
+}
+
+// Function to print the required topological
+// sort of the given graph
+void topologicalSort()
+{
+	int V = adj.size();
+	vector<int> in_degree(V, 0);
+
+	for (int u = 0; u < V; u++) {
+		for (auto x: adj[u])
+			in_degree[x]++;
+	}
+
+	multiset<int> s;
+	for (int i = 0; i < V; i++)
+		if (in_degree[i] == 0)
+			s.insert(i);
+
+	int cnt = 0;
+	vector<int> top_order;
+
+	while (!s.empty()) {
+		int u = *s.begin();
+		s.erase(s.begin());
+		top_order.push_back(u);
+
+		for (auto x:adj[u])
+
+			// If in-degree becomes zero, add it to queue
+			if (--in_degree[x] == 0)
+				s.insert(x);
+
+		cnt++;
+	}
+
+	// Check if there was a cycle
+	if (cnt != V) {
+		cout << -1;
+		return;
+	}
+
+	// Print topological order
+	for (int i = 0; i < top_order.size(); i++)
+		cout << top_order[i]+1 << " ";
+}
+int main() {
     ios_base::sync_with_stdio(0);
     cin.tie(0);
-    int M, N;
-    int D1, D2;
-
+    
+    int N, M;
+    int s, e;
     while (cin >> N >> M) {
-        stack <int> src;
-        vector <int> easier_than[N+1];
-        bool visited[N+1];
-        bool printed[N+1];
-        for (int i = 1; i <= N; i++){
-            visited[i] = false;
-            printed[i] = false;
-        }
-
+        // adjacency matrix
+        adj = vector<vector<int>>(N);
         for (int i = 0; i < M; i++) {
-            cin >> D1 >> D2;
-            easier_than[D2].push_back(D1);
+            cin >> s >> e;
+            addEdge(s-1, e-1);
         }
 
-        for (int i = N; i >= 1; i--) {
-            src.push(i); // for the stack iteration use reverse
-            if (!easier_than[i].empty())
-                sort(easier_than[i].begin(), easier_than[i].end(),
-                     greater<int>());
-        }
-
-        while (!src.empty()) {
-            int curr = src.top();
-            if (visited[curr]) {
-                if (!printed[curr]) {
-                    cout << curr << " ";
-                    printed[curr] = true;
-                }
-                src.pop();
-            } else {
-                visited[curr] = true;
-                for (auto easier : easier_than[curr])
-                    if (!visited[easier])
-                        src.push(easier);
-            }
-        }
+        // find required topological order
+        topologicalSort();
         cout << endl;
     }
+
     return 0;
 }
